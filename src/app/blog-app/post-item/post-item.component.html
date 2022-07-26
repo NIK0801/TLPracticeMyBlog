@@ -1,0 +1,10 @@
+<div style="display: flex; justify-content: space-between; align-items: center; width: 450px">
+  <p>{{post.id}}</p>
+  <p>{{post.title}}</p>
+  <p>{{post.content}}</p>
+  <p>{{post.isPublished}}</p>
+  <p>{{post.categoryId}}</p>
+  <button style="margin: 0 10px" mat-raised-button color="warn" (click)="deletePost()">
+    Удалить
+  </button>
+</div>

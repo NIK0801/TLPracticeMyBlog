@@ -1,0 +1,72 @@
+<mat-toolbar>
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened">
+      menu
+    </mat-icon>
+    <mat-icon *ngIf="sidenav.opened">
+      close
+    </mat-icon>
+  </button>
+  MyBlog
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+    <button mat-button class="menu-button">
+      <mat-icon>assignment</mat-icon>
+      <span>Посты</span>
+    </button>
+    <button mat-button class="menu-button" routerLink="/categories">
+      <mat-icon>extension</mat-icon>
+      <span>Категории</span>
+    </button>
+    <button mat-button class="menu-button" routerLink="/tags">
+      <mat-icon>loyalty</mat-icon>
+      <span>Тэги</span>
+    </button>
+
+    <mat-divider></mat-divider>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="content mat-elevation-z8">
+      <div>
+        <app-post-item style="text-align: center" *ngFor="let post of posts"
+                       [post]="post"
+                       (delete)="deletePost($event)">
+        </app-post-item>
+
+        <form [formGroup]="formPost" class="w-25" style="font-size: small;">
+          <mat-form-field>
+            <mat-label>Id</mat-label>
+            <input formControlName="id" matInput>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label>Название</mat-label>
+            <input formControlName="title" matInput>
+          </mat-form-field>
+          <br>
+          <mat-form-field formControlName="content" class="example-full-width" appearance="fill">
+            <mat-label>Контент</mat-label>
+            <textarea matInput formControlName="content"></textarea>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label>isPublished</mat-label>
+            <input formControlName="isPublished" matInput>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label>categoryId</mat-label>
+            <input formControlName="categoryId" matInput>
+          </mat-form-field>
+          <div style="display: flex; justify-content: space-evenly;">
+            <button mat-raised-button color="warn" (click)="createPost()">Создать пост</button>
+            <button mat-raised-button color="warn" (click)="updatePost()">Обновить пост</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

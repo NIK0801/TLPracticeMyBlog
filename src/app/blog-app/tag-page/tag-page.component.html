@@ -1,0 +1,56 @@
+<mat-toolbar>
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened">
+      menu
+    </mat-icon>
+    <mat-icon *ngIf="sidenav.opened">
+      close
+    </mat-icon>
+  </button>
+  MyBlog
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+    <button mat-button class="menu-button" routerLink="/posts">
+      <mat-icon>assignment</mat-icon>
+      <span>Посты</span>
+    </button>
+    <button mat-button class="menu-button" routerLink="/categories">
+      <mat-icon>extension</mat-icon>
+      <span>Категории</span>
+    </button>
+    <button mat-button class="menu-button">
+      <mat-icon>loyalty</mat-icon>
+      <span>Тэги</span>
+    </button>
+
+    <mat-divider></mat-divider>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="content mat-elevation-z8">
+      <div>
+        <app-tag-item style="text-align: center" *ngFor="let tag of tags"
+                      [tag]="tag"
+                      (delete)="deleteTag($event)">
+        </app-tag-item>
+        <form [formGroup]="formTag" class="w-25" style="font-size: small; align-content: center">
+          <mat-form-field>
+            <mat-label>Id</mat-label>
+            <input formControlName="id" matInput>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label>Название тэга</mat-label>
+            <input formControlName="title" matInput>
+          </mat-form-field>
+          <br>
+          <div style="display: flex; justify-content: space-evenly;">
+            <button mat-raised-button color="warn" (click)="createTag()">Создать</button>
+            <button mat-raised-button color="warn" (click)="updateTag()">Обновить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
